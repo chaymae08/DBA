@@ -5,6 +5,7 @@
 package pr2;
 import jade.core.Agent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
  */
 public class Pr2 extends Agent{
      private int[][] mapa;  // Representación del mapa
-    private int filaActual=0; // Fila actual del agente
+    private int filaActual=0; // Fila actual del agente 
     private int columnaActual=0; // Columna actual del agente
     private int objetivoFila=0; // Fila del objetivo
     private int objetivoColumna=0; // Columna del objetivo
@@ -32,8 +33,14 @@ public class Pr2 extends Agent{
         doDelete();
     }
 
+    
+    
     // Método para cargar el mapa desde un archivo de texto
     private void cargarMapa() {
+        String filePath = "basicMap.txt";
+        System.out.println("Ruta del archivo: " + new File(filePath).getAbsolutePath());
+
+        
         try (BufferedReader br = new BufferedReader(new FileReader("basicMap.txt"))) {
         // Leer la primera línea para obtener el número de filas
         int filas = Integer.parseInt(br.readLine());
@@ -49,7 +56,7 @@ public class Pr2 extends Agent{
 
         while ((linea = br.readLine()) != null) {
             String[] elementos = linea.split("\t"); // Delimitador de tabulación
-            for (int i = 0; i < elementos.length; i++) {
+            for (int i = 0; i < columnas; i++) {
                 int valorCelda = Integer.parseInt(elementos[i]);
                 if (valorCelda == -1 || valorCelda == 0) {
                     mapa[fila][i] = valorCelda;
